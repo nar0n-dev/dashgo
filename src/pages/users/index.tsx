@@ -1,11 +1,14 @@
-import { Box, Flex, Heading, Icon, Button, Table, Thead, Tr, Th, Checkbox, Tbody, Td, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, Icon, Button, Table, Thead, Tr, Th, Checkbox, Tbody, Td, Text, useBreakpointValue } from "@chakra-ui/react";
+import Link from "next/link";
 
-import { RiAddLine, RiPencilLine } from "react-icons/ri";
+import { RiAddLine } from "react-icons/ri";
 import { Header } from "../../components/Header";
 import { Pagination } from "../../components/Pagination";
 import { Sidebar } from "../../components/Sidebar";
 
 export default function UserList() {
+    const isWideVersion = useBreakpointValue({base: false, lg: true});
+
     return (
         <Box>
             <Header />
@@ -35,30 +38,33 @@ export default function UserList() {
                         >
                             Users
                         </Heading>
-
-                        <Button
-                          as='a'
-                          size='sm'
-                          fontSize='sm'
-                          colorScheme='pink'
-                          leftIcon={<Icon as={RiAddLine} fontSize='20' />}
-                        >
-                            New user
-                        </Button>
+                        <Link href='/users/create' passHref>
+                            <Button
+                            as='a'
+                            size='sm'
+                            fontSize='sm'
+                            colorScheme='pink'
+                            leftIcon={<Icon as={RiAddLine} fontSize='20' />}
+                            >
+                                New user
+                            </Button>
+                        </Link>
                     </Flex>
                 
                     <Table colorScheme='whiteAlpha'>
                         <Thead>
                             <Tr>
-                                <Th px='6' color='gray.300' width='8'>
+                                <Th px={['4', '4', '6']} color='gray.300' width='8'>
                                     <Checkbox colorScheme='pink' />
                                 </Th>
                                 <Th>
                                     User
                                 </Th>
-                                <Th>
-                                    Register Date
-                                </Th>
+                                {isWideVersion && (
+                                    <Th>
+                                        Register Date
+                                    </Th>
+                                )}
                                 <Th w='8'>
 
                                 </Th>
@@ -66,7 +72,7 @@ export default function UserList() {
                         </Thead>
                         <Tbody>
                             <Tr>
-                                <Td px='6' color='gray.300' width='8'>
+                                <Td px={['4', '4', '6']} color='gray.300' width='8'>
                                     <Checkbox colorScheme='pink' />
                                 </Td>
                                 <Td>
@@ -75,12 +81,14 @@ export default function UserList() {
                                         <Text fontSize='sm' color='gray.300'>natanscardoso@outlook.com</Text>
                                     </Box>
                                 </Td>
-                                <Td>
-                                    <Box>
-                                        <Text>02 de Junho, 2021</Text>
-                                    </Box>
-                                </Td>
-                                <Td>
+                                {isWideVersion && (
+                                    <Td>
+                                        <Box>
+                                            <Text>02 de Junho, 2021</Text>
+                                        </Box>
+                                    </Td>
+                                )}
+                                {/* <Td>
                                     <Box>
                                         <Button
                                             as='a'
@@ -92,7 +100,7 @@ export default function UserList() {
                                             Edit
                                         </Button>
                                     </Box>
-                                </Td>
+                                </Td> */}
                             </Tr>
                         </Tbody>
                     </Table>
